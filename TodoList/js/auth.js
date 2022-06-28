@@ -15,21 +15,39 @@ authForm.onsubmit = (event) => {
     }
 }
 
-firebase.auth().onAuthStateChanged((user)=>{
-
+firebase.auth().onAuthStateChanged((user) => {
     hideItem(loading)
-
-    if(user){
+    if (user) {
         // parte de quando esta autenticado
-        console.log('Autencado')
-        console.log(user)
-        console.log(user.email)
-    }else{
+        console.log('Usuario autenticado')
+        showUserContent(user)
+      
+    } else {
         //não autenticado
-        console.log('Não Autenticado')
+        
+        showAuth(user)
+        console.log('não autenticado')
     }
 
-    // firebase.auth().signOut().then((user)=>{
-    //     console.log('saiu')
-    // })  função para sair
+
 })
+
+function singOut() { // Des Logar
+    firebase.auth().signOut().catch((erro) => {
+        console.log(erro)
+    })
+    authForm.email.value = ''
+    authForm.password.value = ''
+}
+
+
+
+// finção que permite o usuario fazer firificação do meail dele.
+function sendEmailVerification(){
+    let user = firebase.auth().currentUser
+    user.sendEmailVerification().then(()=>{
+        alert('Email de verificação enviado')
+    }).catch((e)=>{
+        console.log(e)
+    })
+}

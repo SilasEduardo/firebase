@@ -6,6 +6,12 @@ const register = document.getElementById('register')
 const access = document.getElementById('access')
 const loading = document.getElementById('loading')
 
+const auth = document.getElementById('auth')
+const userContent = document.getElementById('userContent')
+const showEmailUser = document.getElementById('showEmailUser')
+
+
+
 
 // alterar formulario de autenticação para o cadastro de novas contas
 
@@ -35,5 +41,21 @@ function showItem(element){
 
 function hideItem(element){
     element.style.display = 'none'
+}
+
+
+//Mostrar conteudo para usuarios autenticados
+function showUserContent(user){
+    console.log(user)
+    hideItem(auth)
+    showItem(userContent)
+    showEmailUser.innerHTML = `usuario ${user.email}`
+}
+
+// Mostrar conteudo para usuarios não autenticados
+function showAuth(){
+    hideItem(userContent)
+    showItem(auth)
+    
 }
 
